@@ -1,6 +1,6 @@
 # 🛒 dbt E-Commerce Analytics Pipeline
 
-A multi-layer dbt Core analytics pipeline modeling raw e-commerce data (customers and orders) into analytics-ready staging views and business mart tables — with schema tests, referential integrity checks, and customer segmentation.
+A multi-layer dbt Core analytics pipeline modeling raw e-commerce data (customers and orders) into analytics-ready staging views and business mart tables, with schema tests, referential integrity checks, and customer segmentation.
 
 ---
 
@@ -102,5 +102,5 @@ dbt-ecommerce-analytics/
 ## Tech Stack
 
 - **dbt Core** — transformation framework
-- **DuckDB** — local analytical database (no cloud account needed)
+- **DuckDB** — local analytical database
 - **SQL** — Jinja-templated dbt models
