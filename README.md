@@ -1,4 +1,4 @@
-# 🛒 dbt E-Commerce Analytics Pipeline
+# dbt E-Commerce Analytics Pipeline
 
 A multi-layer dbt Core analytics pipeline modeling raw e-commerce data (customers and orders) into analytics-ready staging views and business mart tables, with schema tests, referential integrity checks, and customer segmentation.
 
