@@ -1,0 +1,74 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: "Raw e-commerce data seeded from CSV files"
+    tables:
+      - name: customers
+        description: "Raw customer records"
+      - name: orders
+        description: "Raw order records"
+
+models:
+  - name: stg_customers
+    description: "Staged customers — renamed and cleaned from raw source"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_orders
+    description: "Staged orders — renamed and cleaned from raw source"
+    columns:
+      - name: order_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        description: "Foreign key to stg_customers"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['completed', 'returned', 'return_pending', 'shipped', 'placed']
+
+  - name: dim_customers
+    description: "Customer dimension — one row per customer with order history summary"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+
+  - name: fct_orders
+    description: "Orders fact table — one row per order"
+    columns:
+      - name: order_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+
+  - name: fct_customer_orders
+    description: "Customer-level order aggregation — total orders, completion rate, and segmentation"
+    columns:
+      - name: customer_id
+        description: "Primary key"
+        tests:
+          - unique
+          - not_null
+      - name: customer_segment
+        tests:
+          - accepted_values:
+              values: ['High Value', 'Returning', 'New', 'No Orders']
